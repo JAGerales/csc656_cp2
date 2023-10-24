@@ -31,23 +31,25 @@ int main(int argc, char** argv)
    int64_t t;
    int n_problems = problem_sizes.size();
 
-   /* For each test size */
    for (int64_t n : problem_sizes) 
    {
-      printf("Working on problem size N=%lld \n", n);
+      printf("Working on problem size N=%ld \n", n);
 
       // invoke user code to set up the problem
       setup(n, &A[0]);
 
       // insert your timer code here
-
+      std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+      
       // invoke method to perform the sum
       t = sum(n, &A[0]);
 
       // insert your end timer code here, and print out elapsed time for this problem size
+      std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+      std::chrono::duration<double> elapsedTime = end - start;
 
-      printf(" Sum result = %lld \n",t);
-
+      printf(" Sum result = %ld \n",t);
+      std::cout << " Elapsed Time : " << elapsedTime.count() << std::endl;
    } // end loop over problem sizes
 }
 
